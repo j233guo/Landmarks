@@ -8,10 +8,6 @@
 import Foundation
 import Combine
 
-final class ModelData: ObservableObject {
-    @Published var landmarks: [Landmark] = load("landmarkData.json")
-}
-
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
 
@@ -32,4 +28,9 @@ func load<T: Decodable>(_ filename: String) -> T {
     } catch {
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
     }
+}
+
+final class ModelData: ObservableObject {
+    @Published var landmarks: [Landmark] = load("landmarkData.json")
+    var hikes: [Hike] = load("hikeData.json") // is not @Published because its never changed after loading
 }
