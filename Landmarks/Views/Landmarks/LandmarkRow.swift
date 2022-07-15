@@ -14,13 +14,23 @@ struct LandmarkRow: View {
             landmark.image
                 .resizable()
                 .frame(width: 50.0, height: 50.0)
-            Text(landmark.name)
+                .cornerRadius(5)
+            VStack(alignment: .leading) {
+                Text(landmark.name)
+                    .fontWeight(.bold)
+                #if !os(watchOS)
+                Text(landmark.park)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                #endif
+            }
             Spacer()
             if landmark.isFavorite {
                 Image(systemName: "star.fill")
                     .foregroundColor(.yellow)
             }
         }
+        .padding(.vertical, 4)
     }
 }
 
